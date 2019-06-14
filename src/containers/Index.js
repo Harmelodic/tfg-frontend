@@ -30,7 +30,7 @@ export default class Index extends React.Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-  
+
   render() {
     return (
       <div>
