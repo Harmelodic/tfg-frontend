@@ -14,6 +14,6 @@ $ npm start
 $ npm run lint
 ```
 
-## Contributing?
+## Contributing
 
 Read: `CONTRIBUTING.md`
