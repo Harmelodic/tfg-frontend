@@ -1,0 +1,4 @@
+[
+    { "name": "Group A", "min_value": 400, "max_value":600 }, { "name": "Group B", "min_value": 300, "max_value":450 },
+    { "name": "Group C", "min_value": 900, "max_value":1200 }, { "name": "Group D", "min_value": 200, "max_value":400 }
+]
