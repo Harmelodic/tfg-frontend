@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import DatePicker from "react-datepicker";
-import SelectInput from "./SelectInput";
-import ExpenseValue from "./ExpenseValue";
-import UploadReceipt from "./UploadReceipt";
-import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios"
+import React, { Component } from "react"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import ExpenseValue from "./ExpenseValue"
+import SelectInput from "./SelectInput"
+import UploadReceipt from "./UploadReceipt"
 
 const nameOptions = [
   "Select Your Name",
@@ -32,14 +33,14 @@ const nameOptions = [
   "Clement",
   "Abz",
   "Alisina"
-];
+]
 
 const classAttended = [
   "Select Your Class",
   "CYF Class",
   "Homework Club",
   "Other"
-];
+]
 const expenseType = [
   "Select Your Expense",
   "Childcare",
@@ -47,38 +48,51 @@ const expenseType = [
   "Food",
   "Internet",
   "other"
-];
+]
 
 class ExpensesForm extends Component {
   state = {
     startDate: new Date(),
     selectedFile: null
-  };
+  }
 
   handleChange = date => {
     this.setState({
       startDate: date
-    });
-  };
+    })
+  }
 
   handleSelect = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
-  };
+    })
+  }
 
   handleUpload = event => {
-    console.log(event.target.files[0]);
+    console.log(event.target.files[0])
     this.setState({
       selectedFile: event.target.files[0],
       loaded: 0
-    });
-  };
+    })
+  }
 
   handleClick = () => {
-    const data = new FormData();
-    data.append("file", this.state.selectedFile);
-  };
+    const data = new FormData()
+    data.append("file", this.state.selectedFile)
+    const { name, classType, expenseType, amount } = this.state
+    const image = this.state.selectedFile.name
+    const occurAtDate = this.state.startDate
+    console.log(occurAtDate)
+    const expenseData = {
+      name,
+      classType,
+      expenseType,
+      amount,
+      image,
+      occurAtDate
+    }
+    axios.post("http://localhost:3001/expenses", expenseData)
+  }
 
   render() {
     return (
@@ -97,7 +111,7 @@ class ExpensesForm extends Component {
           </div>
           <div className="selectPart">
             <SelectInput
-              name={"studentName"}
+              name={"name"}
               handleSelect={this.handleSelect}
               options={nameOptions}
               selected={this.state.studentName}
@@ -105,7 +119,7 @@ class ExpensesForm extends Component {
             />
             <div>
               <SelectInput
-                name={"classAttend"}
+                name={"classType"}
                 handleSelect={this.handleSelect}
                 options={classAttended}
                 selected={this.state.classAttend}
@@ -123,7 +137,11 @@ class ExpensesForm extends Component {
                 />
               </div>
               <div>
-                <ExpenseValue />
+                <ExpenseValue
+                  name={"amount"}
+                  handleSelect={this.handleSelect}
+                  value={this.amount}
+                />
               </div>
               <div>
                 <div>
@@ -151,8 +169,8 @@ class ExpensesForm extends Component {
           </button>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ExpensesForm;
+export default ExpensesForm

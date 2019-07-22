@@ -8,9 +8,9 @@ const ExpenseValue = props => {
       </label>
       <div>
         <textarea
-          name="description"
-          value={props.description}
-          onChange={props.handleExpenseValue}
+          name={props.name}
+          value={props.value}
+          onChange={props.handleSelect}
           className="form-control"
         />
       </div>
